@@ -50,7 +50,11 @@ namespace Hacker
             Cursor.Hide();
             // 不透明度生效
             if (Properties.Settings.Default.Opacity > 9 && Properties.Settings.Default.Opacity < 100) {
-                this.Opacity = (double)Properties.Settings.Default.Opacity / 100;
+                try
+                {
+                    this.Opacity = (double)Properties.Settings.Default.Opacity / 100;
+                } catch { 
+                }
             }
 
             var url = Properties.Settings.Default.uInfo;
