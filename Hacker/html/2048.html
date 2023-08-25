@@ -100,12 +100,12 @@
             var bastScore=0;//localStorage.getItem("bestScore") || 0;
             function showrank(){
                 document.getElementById("tit").innerHTML = "投降";
-                document.getElementById("con").innerHTML = "点击重新开始 10次后退出";
+                document.getElementById("con").innerHTML = "躺平摆烂当然简单了，点击重新开始 10次后退出";
                 showend();
             }
             function showhelp(){
                 document.getElementById("tit").innerHTML = "游戏帮助";
-                document.getElementById("con").innerHTML = "使用手指触摸滑动屏幕，当两个相同数字的方块接触时，他们就会合体! 只有完成合体锁屏才会退出！";
+                document.getElementById("con").innerHTML = "使用方向键控制方块整体移动，当两个相同数字的方块接触时，他们就会合体! 只有完成合体锁屏才会有可能退出！";
                 showend();
             }
             function showend(){
