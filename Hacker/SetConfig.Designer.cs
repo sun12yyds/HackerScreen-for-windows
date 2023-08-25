@@ -38,6 +38,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.optBar = new System.Windows.Forms.TrackBar();
+            this.checkWebExit = new System.Windows.Forms.CheckBox();
+            this.linkHelp = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.optBar)).BeginInit();
@@ -45,13 +47,14 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkWebExit);
             this.groupBox1.Controls.Add(this.labTip);
             this.groupBox1.Controls.Add(this.txtInfo);
             this.groupBox1.Controls.Add(this.radNet);
             this.groupBox1.Controls.Add(this.radLocal);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(244, 144);
+            this.groupBox1.Size = new System.Drawing.Size(244, 168);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "网页来源";
@@ -122,7 +125,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.optBar);
-            this.groupBox2.Location = new System.Drawing.Point(12, 172);
+            this.groupBox2.Location = new System.Drawing.Point(12, 195);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(244, 82);
             this.groupBox2.TabIndex = 3;
@@ -140,13 +143,35 @@
             this.optBar.TickFrequency = 10;
             this.optBar.Value = 100;
             // 
+            // checkWebExit
+            // 
+            this.checkWebExit.AutoSize = true;
+            this.checkWebExit.Location = new System.Drawing.Point(22, 142);
+            this.checkWebExit.Name = "checkWebExit";
+            this.checkWebExit.Size = new System.Drawing.Size(156, 16);
+            this.checkWebExit.TabIndex = 5;
+            this.checkWebExit.Text = "由网页决定是否退出屏保";
+            this.checkWebExit.UseVisualStyleBackColor = true;
+            // 
+            // linkHelp
+            // 
+            this.linkHelp.AutoSize = true;
+            this.linkHelp.Location = new System.Drawing.Point(303, 258);
+            this.linkHelp.Name = "linkHelp";
+            this.linkHelp.Size = new System.Drawing.Size(53, 12);
+            this.linkHelp.TabIndex = 4;
+            this.linkHelp.TabStop = true;
+            this.linkHelp.Text = "使用帮助";
+            this.linkHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkHelp_LinkClicked);
+            // 
             // SetConfig
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(408, 266);
+            this.ClientSize = new System.Drawing.Size(408, 289);
+            this.Controls.Add(this.linkHelp);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -164,6 +189,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.optBar)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -178,5 +204,7 @@
         private System.Windows.Forms.Label labTip;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TrackBar optBar;
+        private System.Windows.Forms.CheckBox checkWebExit;
+        private System.Windows.Forms.LinkLabel linkHelp;
     }
 }

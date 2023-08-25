@@ -1,22 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Hacker
 {
     public partial class SetConfig : Form
     {
+
+        /// <summary>
+        /// 程序启动目录
+        /// </summary>
+        private readonly string appPath;
+        /// <summary>
+        /// 配置文件路径
+        /// </summary>
+        private readonly string configPath;
+
         public SetConfig()
         {
             InitializeComponent();
+
+            appPath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+            configPath = Path.Combine(appPath, "html", "config.xml");
         }
         
         private void btnCancel_Click(object sender, EventArgs e)
@@ -49,43 +54,49 @@ namespace Hacker
                     return;
                 }
             }
-            Properties.Settings.Default.isLocal = radLocal.Checked;
-            Properties.Settings.Default.uInfo = txtInfo.Text;
-            Properties.Settings.Default.Opacity = optBar.Value;
-            Properties.Settings.Default.Save();
+            config.isLocal = radLocal.Checked;
+            config.uInfo = txtInfo.Text;
+            config.Opacity = optBar.Value;
+            config.autoExit = !checkWebExit.Checked;
+            config.Save(configPath);
             Application.Exit();
         }
-
-        /// <summary>
-        /// 程序启动目录
-        /// </summary>
-        public readonly string appPath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
-
+        
         // 保存初始值
         string selHtml = string.Empty;
         string setUrl = string.Empty;
+        
+        // 加载配置
+        private SimpleSetting config = new SimpleSetting();
+
         private void SetConfig_Load(object sender, EventArgs e)
         {
-            var url = Properties.Settings.Default.uInfo;
-            bool isLocal = Properties.Settings.Default.isLocal;
+            // 创建 html 目录
+            if (!Directory.Exists(appPath + "\\html\\")) Directory.CreateDirectory(appPath + "\\html\\");
 
-            optBar.Value = Properties.Settings.Default.Opacity;
-            labTip.Text = isLocal?"点击下方文本框选择一个网页文件":"请在下方输入一个网址";
-            radLocal.Checked= isLocal;
-            radNet.Checked= !isLocal;
-            txtInfo.ReadOnly = isLocal;
+            if (File.Exists(configPath))
+            {
+                config = new SimpleSetting(configPath);
+            }
+ 
+            optBar.Value = config.Opacity;
+            labTip.Text = config.isLocal ? "点击下方文本框选择一个网页文件":"请在下方输入一个网址";
+            radLocal.Checked= config.isLocal;
+            radNet.Checked= !config.isLocal;
+            txtInfo.ReadOnly = config.isLocal;
+            checkWebExit.Checked = !config.autoExit;
 
             //保存信息
-            if (isLocal)
+            if (config.isLocal)
             {
-                selHtml = url;
+                selHtml = config.uInfo;
             }
             else
             {
-                setUrl = url;
+                setUrl = config.uInfo;
             }
 
-            if (!string.IsNullOrWhiteSpace(url))txtInfo.Text = url;
+            if (!string.IsNullOrWhiteSpace(config.uInfo))txtInfo.Text = config.uInfo;
         }
 
         private void radLocal_CheckedChanged(object sender, EventArgs e)
@@ -111,5 +122,10 @@ namespace Hacker
             }
         }
 
+        private void linkHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // 打开帮助页面
+            System.Diagnostics.Process.Start("https://github.com/sangyuxiaowu/HackerScreenSaver");
+        }
     }
 }

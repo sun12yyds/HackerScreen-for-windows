@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Hacker
@@ -18,15 +19,15 @@ namespace Hacker
         /// 全局鼠标键盘事件管理
         /// </summary>
         private IKeyboardMouseEvents m_GlobalHook;
+
+        /// <summary>
+        /// 是否注册了键鼠事件
+        /// </summary>
+        private bool isHooked = false;
+
         public Main()
         {
             InitializeComponent();
-
-            // 鼠标键盘事件用于结束屏保
-            m_GlobalHook = Hook.GlobalEvents();
-            m_GlobalHook.MouseClick += M_GlobalHook_MouseClick;
-            m_GlobalHook.KeyPress += M_GlobalHook_KeyPress;
-            m_GlobalHook.MouseMove += M_GlobalHook_MouseMove;
         }
 
         public Main(IntPtr intPtr)
@@ -46,33 +47,53 @@ namespace Hacker
 
         private void Main_Load(object sender, EventArgs e)
         {
-            // 隐藏鼠标
-            Cursor.Hide();
+            // 预览模式下，只显示logo
+            if (isPreviewMode) return;
+
+            string configPath = appPath + "\\html\\config.xml";
+            SimpleSetting config = File.Exists(configPath) ? new SimpleSetting(configPath) : new SimpleSetting();
+
+            // 是否自动退出
+            if (config.autoExit)
+            {
+                // 鼠标键盘事件用于结束屏保
+                m_GlobalHook = Hook.GlobalEvents();
+                m_GlobalHook.MouseClick += M_GlobalHook_MouseClick;
+                m_GlobalHook.KeyPress += M_GlobalHook_KeyPress;
+                m_GlobalHook.MouseMove += M_GlobalHook_MouseMove;
+                Cursor.Hide();
+                isHooked = true;
+            }
+            else 
+            { 
+                // 注册网页事件
+                webB.ObjectForScripting = new JavaScriptInteraction();
+            }
+
+            
             // 不透明度生效
-            if (Properties.Settings.Default.Opacity > 9 && Properties.Settings.Default.Opacity < 100) {
+            if (config.Opacity > 9 && config.Opacity < 100) {
                 try
                 {
-                    this.Opacity = (double)Properties.Settings.Default.Opacity / 100;
+                    this.Opacity = (double)config.Opacity / 100;
                 } catch { 
                 }
             }
 
-            var url = Properties.Settings.Default.uInfo;
-            bool isLocal = Properties.Settings.Default.isLocal;
             // 未设置或未空，则默认
-            if (string.IsNullOrWhiteSpace(url))
+            if (string.IsNullOrWhiteSpace(config.uInfo))
             {
                 webB.Navigate(appPath + "\\html\\hacker.html");
             }
             else
             {
-                if (isLocal)
+                if (config.isLocal)
                 {
-                    webB.Navigate(url);
+                    webB.Navigate(config.uInfo);
                 }
                 else
                 {
-                    webB.Url = new Uri(url);
+                    webB.Url = new Uri(config.uInfo);
                 }
             }
         }
@@ -114,7 +135,7 @@ namespace Hacker
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (!isPreviewMode)
+            if (isHooked)
             {
                 m_GlobalHook.MouseClick -= M_GlobalHook_MouseClick;
                 m_GlobalHook.KeyPress -= M_GlobalHook_KeyPress;
@@ -128,4 +149,14 @@ namespace Hacker
             Application.Exit();
         }
     }
+
+    [ComVisible(true)]
+    public class JavaScriptInteraction
+    {
+        public void ExecuteExitSrc()
+        {
+            Application.Exit();
+        }
+    }
+
 }

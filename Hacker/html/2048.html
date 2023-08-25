@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta charset="utf-8">
+        <link href="2048.css" rel="stylesheet" type="text/css">
+        <title>2048网页版</title>
+        <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+        <style>
+            .my-message{padding-top:10px}
+            .my-message>div{margin:0 10%}.link{display:inline-block}#tit{font-weight:bold;font-size:25px}#con{text-align:left;font-size:18px}#con span{float:right}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="heading">
+                <h1 class="title">2048</h1>
+                <div class="scores-container">
+                    <div class="score-container" id="myscore">
+                        <div class="score-addition"></div>
+                    </div>
+                    <div class="best-container"></div>
+                </div>
+            </div>
+            <div class="above-game" style="padding-bottom: 10px;">
+                <a class="restart-button">重新开始</a>
+            </div>
+            <div class="game-container">
+                <div class="game-message">
+                    <p id='ms'>
+                    </p>
+                    <div class="lower">
+                        <a class="keep-playing-button">继续游戏</a>
+                        <a class="retry-button">再来一次</a>
+                        <div class="score-sharing" id="sc"></div>
+                    </div>
+                </div>
+                
+                <div class="my-message" id="my-ms">
+                    <div>
+                        <p id="tit"></p>
+                        <p id="con"></p>
+                    </div>
+                </div>
+                
+                <div class="grid-container">
+                    <div class="grid-row">
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                        <div class="grid-cell">
+                        </div>
+                    </div>
+                </div>
+                <div class="tile-container"></div>
+            </div><br><br>
+            <div style="text-align:center;">
+            <a href="javascript:showhelp();" class="link" style="float:left;">帮助</a>
+            <a href="https://github.com/sangyuxiaowu/HackerScreenSaver" class="link">关于锁屏</a>
+            <a href="javascript:showrank();" class="link" style="float:right;">投降</a>
+            </div>
+        </div>
+        <script src="2048.js"></script>
+        <script>
+            var refresh = 0;
+            var bastScore=0;//localStorage.getItem("bestScore") || 0;
+            function showrank(){
+                document.getElementById("tit").innerHTML = "投降";
+                document.getElementById("con").innerHTML = "点击重新开始 10次后退出";
+                showend();
+            }
+            function showhelp(){
+                document.getElementById("tit").innerHTML = "游戏帮助";
+                document.getElementById("con").innerHTML = "使用手指触摸滑动屏幕，当两个相同数字的方块接触时，他们就会合体! 只有完成合体锁屏才会退出！";
+                showend();
+            }
+            function showend(){
+                document.getElementById("my-ms").style.display='block';
+                setTimeout(function(){
+                    document.getElementById('my-ms').style.display='none';
+                },5000);
+            }
+        </script>
+    </body>
+</html>
