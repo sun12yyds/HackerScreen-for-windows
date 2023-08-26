@@ -16,7 +16,9 @@ namespace Hacker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+#if DEBUG
+            args = new string[] { "/s" };
+#endif
             if (args.Length > 0)
             {
                 switch (args[0].ToLower().Trim().Substring(0, 2))
