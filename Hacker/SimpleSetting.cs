@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hacker
+﻿namespace Hacker
 {
     /// <summary>
     /// 用于保存设置的类，自定义的配置文件
