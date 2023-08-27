@@ -4,11 +4,14 @@
 
 Hacker Screen Saver 是一款 .NET 设计的屏幕保护程序，可以显示 HTML 页面，你可以将黑客模拟器的网页，摸鱼时需要的windows更新，或者爱心代码网页设置为你的 Windows 电脑屏保。
 
-软件代码介绍的相关文章：[《用.NET设计一个假装黑客的屏幕保护程序》](https://mp.weixin.qq.com/s/WAsWQINJA3cletktYb-TKw)
+软件代码介绍的相关文章：
 
-已添加设置功能，可以选择本地网页也可以设置自定义的 URL 地址。软件自身提供 2 个网页屏保。
+- [《用.NET设计一个假装黑客的屏幕保护程序》](https://mp.weixin.qq.com/s/WAsWQINJA3cletktYb-TKw)
+- [《退出屏保前玩一把游戏吧！webBrowser中网页如何调用.NET方法》](https://mp.weixin.qq.com/s/-_deEGlMrAPenCFWIG8ORg)
 
-[👉 点击下载最新 v1.3 版](https://github.com/sangyuxiaowu/HackerScreenSaver/releases/download/v1.3/HackerScreenSaver.zip)
+已添加设置功能，可以选择本地网页也可以设置自定义的 URL 地址。软件自身提供 四 个网页屏保。
+
+[👉 点击下载最新 v1.6 版](https://github.com/sangyuxiaowu/HackerScreenSaver/releases/download/v1.6/HackerScreenSaver.zip)
 
 # 使用介绍
 
@@ -42,160 +45,32 @@ Hacker Screen Saver 是一款 .NET 设计的屏幕保护程序，可以显示 HT
 
 不透明度滑块，可以设置屏保界面的不透明度，滑动范围为 10% 到 100% 的值。
 
+### 由网页决定是否退出屏保
+
+该功能需要相应的网页提供退出屏保功能。退出屏保需要网页调用 ` window.external.ExecuteExitSrc();` 如 `html\exit.html` 这个样例所示。
+
+该功能提供了更多的可玩性，用户可以根据自己的喜好设计各种有意思的屏保，比如：
+
+1. **解谜屏保**：设计一个带有简单谜题的屏保，用户需要在网页上回答正确才能退出屏保。谜题可以是数学题、逻辑题或者常识题等，每次屏保激活时，可以随机从题库中抽取一道题目。既然是题库，甚至可以利用屏保学习各种知识，比如英语单词，各种考试题等等。
+   
+2. **拼图屏保**：制作一个拼图游戏，用户需要在网页上完成拼图才能退出屏保。可以使用用户自己的照片作为拼图素材，或者从网上随机抓取图片。拼图难度可以根据用户的喜好进行调整。  
+   
+3. **计时屏保**：设置一个倒计时屏保，用户需要在网页上等待一段时间（例如，1分钟）后才能退出屏保。在等待期间，可以展示一些有趣的事物，如名言警句、美丽的图片或者实时新闻等。
+
 # 自带屏保介绍
 
-### 默认 Hacker Typer
 
-![Hacker Typer](doc/2.png)
+|  标题   | 描述  | 效果  |
+|  ----  | ----  | ----  |
+|  [默认 Hacker Typer](./doc/01_HackerTyper)  | 默认屏保效果  |  <img width="200" alt="Hacker Typer" src="doc/2.png"/> |
+|  [摸鱼小能手 Update](./doc/02_Update.md)  | 模仿 Windows update  |  <img width="200" alt="Update" src="doc/0.png"/> |
+|  [爱心代码 Love](./doc/03_Love.md)  | 显示爱心和日期计时  |  <img width="200" alt="Love" src="doc/1.png"/> |
+|  [2048 游戏](./doc/04_Game2048.md)  | 锁屏小游戏  |  <img width="200" alt="2048" src="doc/6.png"/> |
 
-默认本地网页设置，位于 `html\hacker.html`，原型来自古老版本的 [NEO Hacker Typer](https://geektyper.com/scp/) 并做了 IE 适配。
 
-更多效果可前往 [GeekTyper](https://geektyper.com/) 
+# 自制屏保
 
-### 摸鱼小能手 Update
-
-![Update](doc/0.png)
-
-模拟 Windows 10 更新界面，位于 `html\update.html`，长时间不用电脑自动摸鱼掩护。
-
-### 爱心代码 Love
-
-![Love](doc/1.png)
-
-提供的一个可选本地网页，位于 `html\love.html`，可以显示你们在一起的时长，内容文案可自行修改该文件。
-
-#### 1. 修改时间
-
-时间位于第61和62行，设置你们在一起的时间，即可计算过去了多久：
-
-```js
-together.setFullYear(2018,2,9);
-together.setHours(20,0,0,0);
-```
-
-> 注意 `setFullYear` 中的语法：`Date.setFullYear(year, month, day)`
-
-<table>
-<tbody><tr>
-<th style="width: 22%;">参数</th>
-<th>描述</th>
-</tr>
-
-<tr>
-<td><i>year</i></td>
-<td>必需。表示年份的值，允许负值。</td>
-</tr>
-
-<tr>
-<td><i>month</i></td>
-<td>
-<p>可选。表示月份的整数。</p>
-<p>预期值是 0-11，但允许其他值：</p>
-
-	<ul class="listintable">
-	<li>-1 将导致上一年的最后一个月</li>
-	<li>12 将导致明年的第一个月</li>
-	<li>13 将导致明年的第二个月</li>
-	</ul>
-</td>
-</tr>
-
-<tr>
-<td><i>day</i></td>
-<td>
-<p>可选。整数，表示月中的哪一天。</p>
-<p>预期值是 1-31，但允许其他值：</p>
-
-	<ul class="listintable">
-	<li>0 将导致上个月的最后一天</li>
-	<li>-1 将导致上个月的最后一天的前一天</li>
-	</ul>
-
-<p>如果一个月有 31 天：</p>
-
-	<ul class="listintable">
-	<li>32 将导致下个月的第一天</li>
-	</ul>
-
-<p>如果一个月有 30 天：</p>
-
-	<ul class="listintable">
-	<li>32 将导致下个月的第二天</li>
-	</ul>
-</td>
-</tr>
-</tbody></table>
-
-> 注意 `setHours` 中的语法：`Date.setHours(hour, min, sec, millisec)`
-
-<table>
-<tbody><tr>
-<th style="width: 22%;">参数</th>
-<th>描述</th>
-</tr>
-
-<tr>
-<td><i>hour</i></td>
-<td>
-<p>必需。表示小时的整数。</p>
-<p>期望值是 0-23，但允许其他值：</p>
-
-	<ul class="listintable">
-	<li>-1 将导致前一天的最后一个小时</li>
-	<li>24 将导致第二天的第一个小时</li>
-	</ul>
-</td>
-</tr>
-
-<tr>
-<td><i>min</i></td>
-<td>
-<p>可选。表示分钟的整数。</p>
-<p>期望值是 0-59，但允许其他值：</p>
-
-	<ul class="listintable">
-	<li>-1 将导致前一小时的最后一分钟</li>
-	<li>60 将导致下一小时的第一分钟</li>
-	</ul>
-</td>
-</tr>
-
-<tr>
-<td><i>sec</i></td>
-<td>
-<p>可选。表示秒的整数。</p>
-<p>期望值是 0-59，但允许其他值：</p>
-
-	<ul class="listintable">
-	<li>-1 将导致前一分钟的最后一秒</li>
-	<li>60 将导致下一分钟的第一秒</li>
-	</ul>
-</td>
-</tr>
-
-<tr>
-<td><i>millisec</i></td>
-<td>
-<p>可选。表示毫秒的整数。</p>
-<p>期望值为 0-999，但允许其他值：</p>
-
-	<ul class="listintable">
-	<li>-1 将导致前一秒的最后一毫秒</li>
-	<li>1000 将导致下一秒的第一毫秒</li>
-	</ul>
-</td>
-</tr>
-</tbody></table>
-
-#### 2. 修改名称
-
-称谓在77和78行，75和76行可以改为你们的纪念时间，比如在一起，求婚等等。
-
-第105、109和110行可修改为时间的说明文案。
-
-# 注意
-
-为了程序简易仍软件采用了 WebBrowser，故自行设计网页的时候，请考虑 IE 的兼容性，并添加如下代码在网页中：
+为了程序简易，软件采用了 WebBrowser，故自行设计网页的时候，请考虑 IE 的兼容性，并添加如下代码在网页中：
 
 ```html
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
