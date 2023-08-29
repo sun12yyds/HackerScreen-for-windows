@@ -39,6 +39,20 @@ namespace Hacker
             picLogo.Visible = true;
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            // 检测是否按下了Alt+F4  
+            if (e.Alt && e.KeyCode == Keys.F4)
+            {
+                // 取消关闭操作  
+                e.Handled = true;
+            }
+            else
+            {
+                base.OnKeyDown(e);
+            }
+        }
+
         /// <summary>
         /// 程序启动目录
         /// </summary>
