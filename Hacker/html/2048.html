@@ -89,29 +89,49 @@
                 <div class="tile-container"></div>
             </div><br><br>
             <div style="text-align:center;">
-            <a href="javascript:showhelp();" class="link" style="float:left;">帮助</a>
-            <a href="https://github.com/sangyuxiaowu/HackerScreenSaver" class="link">关于锁屏</a>
-            <a href="javascript:showrank();" class="link" style="float:right;">投降</a>
+            <a id="showhelp" class="link" style="float:left;">帮助</a>
+            <a id="github" class="link">关于锁屏</a>
+            <a id="showrank" class="link" style="float:right;">投降</a>
             </div>
         </div>
         <script src="2048.js"></script>
-        <script>
+        <script type="text/javascript">
             var refresh = 0;
-            var bastScore=0;//localStorage.getItem("bestScore") || 0;
-            function showrank(){
-                document.getElementById("tit").innerHTML = "投降";
-                document.getElementById("con").innerHTML = "躺平摆烂当然简单了，点击重新开始 10次后退出";
-                showend();
-            }
-            function showhelp(){
-                document.getElementById("tit").innerHTML = "游戏帮助";
-                document.getElementById("con").innerHTML = "使用方向键控制方块整体移动，当两个相同数字的方块接触时，他们就会合体! 只有完成合体锁屏才会有可能退出！";
-                showend();
-            }
-            function showend(){
+            var bastScore=0;
+            var isAnimating = false;  
+
+            document.getElementById("showhelp").addEventListener('click', function() {  
+                updateTextAndShowEnd(  
+                    "游戏帮助",  
+                    "使用方向键控制方块整体移动，当两个相同数字的方块接触时，他们就会合体! 只有完成合体锁屏才会有可能退出！"  
+                );  
+            });  
+            
+            document.getElementById("showrank").addEventListener('click', function() {  
+                updateTextAndShowEnd(  
+                    "投降",  
+                    "躺平摆烂当然简单了，点击重新开始 10次后退出"  
+                );  
+            });
+
+            document.getElementById("github").addEventListener('click', function () {
+                updateTextAndShowEnd(
+                    "Github 开源地址",
+                    "https://github.com/sangyuxiaowu/HackerScreenSaver"
+                );
+            });
+            
+            function updateTextAndShowEnd(tit, con) {  
+                if (isAnimating) {  
+                    return;  
+                }  
+                isAnimating = true; 
+                document.getElementById("tit").innerHTML = tit;  
+                document.getElementById("con").innerHTML = con;  
                 document.getElementById("my-ms").style.display='block';
                 setTimeout(function(){
                     document.getElementById('my-ms').style.display='none';
+                    isAnimating = false;
                 },5000);
             }
         </script>

@@ -288,9 +288,9 @@ hr {
 	z-index: 100;
 	padding-top: 40px;
 	text-align: center;
-	-webkit-animation: fade-in 800ms ease 1200ms;
-	-moz-animation: fade-in 800ms ease 1200ms;
-	animation: fade-in 800ms ease 1200ms;
+	-webkit-animation: fade-in 400ms ease 600ms;
+	-moz-animation: fade-in 400ms ease 600ms;
+	animation: fade-in 400ms ease 600ms;
 	-webkit-animation-fill-mode: both;
 	-moz-animation-fill-mode: both;
 	animation-fill-mode: both;
