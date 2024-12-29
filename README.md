@@ -1,4 +1,4 @@
-﻿# Hacker Screen Saver
+﻿# HackerScreen for windows
 
 .NET develops a screen saver. 
 
